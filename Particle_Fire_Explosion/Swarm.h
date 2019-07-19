@@ -8,7 +8,7 @@ namespace sf {
 		Particle* m_pParticles;
 
 	public:
-		const static int NPARTICLES = 1000;
+		const static int NPARTICLES = 5000;
 
 	public:
 		Swarm();

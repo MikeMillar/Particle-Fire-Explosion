@@ -7,8 +7,8 @@ namespace sf {
 		Particle();
 		virtual ~Particle();
 		void update();
-		double m_xSpeed;
-		double m_ySpeed;
+		double m_speed;
+		double m_direction;
 	};
 }
 #endif

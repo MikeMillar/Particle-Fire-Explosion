@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
 		for (int i = 0; i < sf::Swarm::NPARTICLES; i++) {
 			sf::Particle particle = pParticles[i];
 			int x = (particle.m_x + 1) * (sf::Screen::SCREEN_WIDTH / 2);
-			int y = (particle.m_y + 1) * (sf::Screen::SCREEN_HEIGHT / 2);
+			int y = (particle.m_y * (sf::Screen::SCREEN_WIDTH / 2)) + (sf::Screen::SCREEN_HEIGHT / 2);
 
 			screen.setPixel(x, y, red, green, blue);
 		}
