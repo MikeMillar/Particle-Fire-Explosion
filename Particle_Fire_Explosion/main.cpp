@@ -25,6 +25,36 @@ int main(int argc, char *argv[]) {
 		return 2;
 	}
 
+	// Creates a 2D rendering context for window
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
+	// Creates texture for rendering context
+	SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STATIC, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	// Checks to see if renderer and texture loads, exits with error if not.
+	if (renderer == NULL) {
+		cout << "Could not create renderer. SDL Error: " << SDL_GetError() << endl;
+		SDL_DestroyWindow(window);
+		SDL_Quit();
+		return 3;
+	}
+	if (texture == NULL) {
+		cout << "Could not create texture. SDL Error: " << SDL_GetError() << endl;
+		SDL_DestroyRenderer(renderer);
+		SDL_DestroyWindow(window);
+		SDL_Quit();
+		return 4;
+	}
+
+	Uint32* buffer = new Uint32[SCREEN_WIDTH * SCREEN_HEIGHT]; // Allocate memory for all pixels in program
+
+	memset(buffer, 0xFF, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32)); // Sets all pixel memory to white
+
+	// Update screen information
+	SDL_UpdateTexture(texture, NULL, buffer, SCREEN_WIDTH * sizeof(Uint32));
+	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, texture, NULL, NULL);
+	SDL_RenderPresent(renderer);
+
 	// Sets loop param to false
 	bool quit = false;
 	// Event listener
@@ -45,6 +75,9 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Destroys window when program is ending, and exits program
+	delete[] buffer;
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyTexture(texture);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 	return EXIT_SUCCESS;
