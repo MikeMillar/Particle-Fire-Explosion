@@ -92,4 +92,7 @@ namespace sf {
 
 		m_buffer[(y * SCREEN_WIDTH) + x] = color;
 	}
+	void Screen::clear() {
+		memset(m_buffer, 0, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+	}
 }

@@ -8,12 +8,13 @@ namespace sf {
 		Particle* m_pParticles;
 
 	public:
-		const static int NPARTICLES = 5000;
+		const static int NPARTICLES = 1000;
 
 	public:
 		Swarm();
 		~Swarm();
 		const Particle* const getParticles() { return m_pParticles; }
+		void update();
 	};
 }
 
