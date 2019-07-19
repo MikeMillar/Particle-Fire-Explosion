@@ -75,6 +75,11 @@ namespace sf {
 		SDL_RenderPresent(m_renderer);
 	}
 	void Screen::setPixel(int x, int y, Uint8 red, Uint8 green, Uint8 blue) {
+
+		if (x < 0 || x >= sf::Screen::SCREEN_WIDTH || y < 0 || y >= sf::Screen::SCREEN_HEIGHT) {
+			return;
+		}
+
 		Uint32 color = 0;
 
 		color += red;

@@ -1,21 +1,26 @@
 #include <iostream>
 #include <SDL.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "Screen.h"
+#include "Swarm.h"
+#include "Particle.h"
 
 using namespace std;
 
 
 int main(int argc, char *argv[]) {
+	srand(time(NULL));
 
 	sf::Screen screen;
 
 	if (screen.init() == false) {
 		cout << "Error initializing SDL." << endl;
 	}
+
+	sf::Swarm swarm;
 	
-	int max = 0;
-	int min = 255;
 	
 	while (true) { // Program Loop
 		// Update particles
@@ -24,15 +29,17 @@ int main(int argc, char *argv[]) {
 		// Draw particles
 		int elapsed = SDL_GetTicks();
 		unsigned char red = (1 + sin(elapsed * 0.0002)) * 128;
-		unsigned char green = (1 + sin(elapsed*0.0001)) * 128;
+		unsigned char green = (1 + sin(elapsed * 0.0001)) * 128;
 		unsigned char blue = (1 + sin(elapsed * 0.0003)) * 128;
 
-		for (int y = 0; y < sf::Screen::SCREEN_HEIGHT; y++) {
-			for (int x = 0; x < sf::Screen::SCREEN_WIDTH; x++) {
-				screen.setPixel(x, y, red, green, blue);
-			}
-		}
+		const sf::Particle* const pParticles = swarm.getParticles();
+		for (int i = 0; i < sf::Swarm::NPARTICLES; i++) {
+			sf::Particle particle = pParticles[i];
+			int x = (particle.m_x + 1) * (sf::Screen::SCREEN_WIDTH / 2);
+			int y = (particle.m_y + 1) * (sf::Screen::SCREEN_HEIGHT / 2);
 
+			screen.setPixel(x, y, red, green, blue);
+		}
 
 		// Draw the screen
 		screen.update();
