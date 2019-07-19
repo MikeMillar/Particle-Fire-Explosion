@@ -6,7 +6,7 @@ namespace sf {
 		double m_x, m_y;
 		Particle();
 		virtual ~Particle();
-		void update();
+		void update(int interval);
 		double m_speed;
 		double m_direction;
 	};
