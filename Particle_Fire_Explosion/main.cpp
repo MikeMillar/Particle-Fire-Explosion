@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
 
 	sf::Swarm swarm;
 	
-	
+		
 	while (true) { // Program Loop
 		// Update particles
 		
@@ -29,7 +29,6 @@ int main(int argc, char *argv[]) {
 		// Draw particles
 		int elapsed = SDL_GetTicks();
 
-		screen.clear();
 		swarm.update(elapsed);
 
 		unsigned char red = (1 + sin(elapsed * 0.0002)) * 128;
@@ -44,6 +43,8 @@ int main(int argc, char *argv[]) {
 
 			screen.setPixel(x, y, red, green, blue);
 		}
+
+		screen.boxBlur();
 
 		// Draw the screen
 		screen.update();
